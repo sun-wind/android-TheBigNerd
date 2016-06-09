@@ -35,7 +35,6 @@ public class QuizActivity extends AppCompatActivity {
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Logger.getAnonymousLogger().info("Hello!");
                 checkAnsver(true);
             }
         });
@@ -43,7 +42,6 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Logger.getLogger("").info("Ta Da");
                 checkAnsver(false);
             }
         });
