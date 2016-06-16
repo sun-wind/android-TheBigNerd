@@ -32,7 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, ">> Create");
+        Log.d(TAG, ">> Create 111");
 
         setContentView(R.layout.activity_quiz);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
@@ -44,7 +44,7 @@ public class QuizActivity extends AppCompatActivity {
                 checkAnswer(true);
             }
         });
-        mFalseButton = (Button) findViewById(R.id.false_button);
+       mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +131,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestion() {
+    //    Log.d(TAG, "UpdateQuestion index="+mCurrentIndex, new Exception());
         Question q = null;
         try {
             q = mQuestionBlank[mCurrentIndex];
