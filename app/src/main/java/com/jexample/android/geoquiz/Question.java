@@ -1,9 +1,10 @@
 package com.jexample.android.geoquiz;
 
 /**
- * Created by str on 08.06.16.
+ * Created by str
+ * 08.06.16.
  */
-public class Question {
+class Question {
     private int mTextResId;
     private boolean mAnswerTrue;
 

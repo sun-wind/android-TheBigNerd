@@ -3,10 +3,18 @@
     <string name="question_paris">Does Paris is the capital of France?</string>
     <string name="question_madagascar">Madagascar is located of the east coast of America.</string>
     <string name="question_nizhnevartovsk">Nizhnevartovs ends railway track.</string>
+
+    <string name="warning_text">Are you sure you want to do this?</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="judgment_toast">Cheating is wrong!</string>
+    <string name="title_activity_cheat">Cheat</string>
+
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="correct_toast">Correct!</string>
-    <string name="uncorrect_toast">Incorrect!</string>
+    <string name="incorrect_toast">Incorrect!</string>
     <string name="next_button">Next</string>
     <string name="prev_button">Prev</string>
+
 </resources>

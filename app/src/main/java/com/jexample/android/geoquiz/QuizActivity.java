@@ -1,6 +1,7 @@
 package com.jexample.android.geoquiz;
 
-import android.os.PersistableBundle;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +19,11 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
+    private Button mCheatButton;
 
     private TextView mQuestionTextView;
 
-    private Question[] mQuestionBlank = new Question[]{
+    private final Question[] mQuestionBlank = new Question[]{
             new Question(true, R.string.question_paris),
             new Question(false, R.string.question_madagascar),
             new Question(true, R.string.question_nizhnevartovsk)
@@ -29,35 +31,39 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentIndex = 0;
 
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, ">> Create 111");
+        Log.d(TAG, ">> Create");
 
         setContentView(R.layout.activity_quiz);
-        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
+        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         mTrueButton = (Button) findViewById(R.id.true_button);
+        mFalseButton = (Button) findViewById(R.id.false_button);
+        mNextButton = (ImageButton) findViewById(R.id.next_button);
+        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(CURRENT_INDEX, 0);
+        }
+
+        /* listeners */
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
             }
         });
-       mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
             }
         });
-
-        mNextButton = (ImageButton) findViewById(R.id.next_button);
-        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
-
-        if (savedInstanceState != null) {
-            mCurrentIndex = savedInstanceState.getInt(CURRENT_INDEX, 0);
-        }
         View.OnClickListener listenerNext = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,11 +80,20 @@ public class QuizActivity extends AppCompatActivity {
 
                 if (mCurrentIndex == 0) {
                     Toast.makeText(QuizActivity.this, "This is First Question!", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     mCurrentIndex = (mCurrentIndex - 1) % mQuestionBlank.length;
                     updateQuestion();
                 }
+            }
+        });
+
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                //CheatActivity activity = new CheatActivity();
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -90,7 +105,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, ">> On Save Inastance <<");
+        Log.d(TAG, ">> On Save Instance <<");
         outState.putInt(CURRENT_INDEX, mCurrentIndex);
     }
 
@@ -121,7 +136,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, ">> Destroyyyy");
+        Log.d(TAG, ">> Destroy");
     }
 
     @Override
@@ -131,7 +146,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestion() {
-    //    Log.d(TAG, "UpdateQuestion index="+mCurrentIndex, new Exception());
+        //    Log.d(TAG, "UpdateQuestion index="+mCurrentIndex, new Exception());
         Question q = null;
         try {
             q = mQuestionBlank[mCurrentIndex];
@@ -149,7 +164,7 @@ public class QuizActivity extends AppCompatActivity {
         if (question.isAnswerTrue() == answerUser) {
             checkAnswerId = R.string.correct_toast;
         } else {
-            checkAnswerId = R.string.uncorrect_toast;
+            checkAnswerId = R.string.incorrect_toast;
         }
 
         Toast.makeText(QuizActivity.this, checkAnswerId, Toast.LENGTH_SHORT).show();
